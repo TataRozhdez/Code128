@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import bwipjs from 'bwip-js'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import logo from './logo.svg'
+
+class App extends Component {
+  componentDidMount() {
+    try {
+      // The return value is the canvas element
+      let canvas = bwipjs.toCanvas('mycanvas', {
+        bcid: 'code128', // Barcode type
+        text: '0123456789', // Text to encode
+        scale: 1, // 3x scaling factor
+        height: 10, // Bar height, in millimeters
+        includetext: true, // Show human-readable text
+        textxalign: 'center', // Always good to set this
+      })
+    } catch (e) {
+      // `e` may be a string or Error object
+    }
+  }
+  render() {
+    return (
+      <div className='App'>
+        <canvas id='mycanvas'></canvas>
+      </div>
+    )
+  }
 }
-
-export default App;
+export default App
